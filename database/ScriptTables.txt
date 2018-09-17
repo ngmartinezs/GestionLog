@@ -1,0 +1,95 @@
+
+create user DS_APP_REG_EVENTO_WS identified by 12345678 default tablespace DS_APP_REG_EVENTO_WS;
+grant connect  DS_APP_REG_EVENTO_WS;
+Grant resource to DS_APP_REG_EVENTO_WS;
+create role APP_REG_EVENTO_WS;
+GRANT APP_REG_EVENTO_WS TO DS_APP_REG_EVENTO_WS;
+DS_APP_REG_EVENTO_WS
+
+
+
+create role REG_EVENTOS;
+
+CREATE BIGFILE TABLESPACE REG_EVENTOS_ZTA_tbs_01 DATAFILE 'REG_EVENTOS_ZTA_tbs_01.dat' SIZE 20M AUTOEXTEND ON;
+create user REG_EVENTOS_ZTA  identified by 12345678 default tablespace REG_EVENTOS_ZTA_tbs_01;
+grant connect  to REG_EVENTOS_ZTA;
+Grant resource to REG_EVENTOS_ZTA;
+GRANT REG_EVENTOS TO REG_EVENTOS_ZTA;
+
+
+
+CREATE BIGFILE TABLESPACE REG_EVENTOS_ZTE_tbs_01 DATAFILE 'REG_EVENTOS_ZTE_tbs_01.dat' SIZE 20M AUTOEXTEND ON;
+create user REG_EVENTOS_ZTE  identified by 12345678 default tablespace REG_EVENTOS_ZTA_tbs_01;
+grant connect  REG_EVENTOS_ZTE;
+Grant resource to REG_EVENTOS_ZTE;
+GRANT REG_EVENTOS TO REG_EVENTOS_ZTE;
+
+
+CREATE BIGFILE TABLESPACE REG_EVENTOS_ZP_tbs_01 DATAFILE 'REG_EVENTOS_ZP_tbs_01.dat' SIZE 20M AUTOEXTEND ON;
+create user REG_EVENTOS_ZP  identified by 12345678 default tablespace REG_EVENTOS_ZP_tbs_01;
+grant connect  to REG_EVENTOS_ZP;
+Grant resource to REG_EVENTOS_ZP;
+GRANT REG_EVENTOS TO REG_EVENTOS_ZP;
+
+
+
+GRANT DBA TO ngmartinezs WITH ADMIN OPTION;
+
+GRANT CREATE SESSION GRANT ANY PRIVILEGE TO ngmartinezs;
+
+GRANT ALL PRIVILEGES TO ngmartinezs;
+
+DROP TABLE REG_EVENTOS_ZTA.LOG_EVENTO;
+create table REG_EVENTOS_ZTA.LOG_EVENTO(
+	log_evento_id NUMBER(30) NOT NULL,
+	usuario_id varchar(30) NOT NULL,
+	usuario_ip varchar(30) NOT NULL,
+	nombre_pagina varchar(200) NOT NULL,
+	url_Pagina varchar(300),
+	componente varchar(200),
+	session_ID  varchar(200),
+	fecha_creacion date not null,
+	usuario_creacion varchar(30) not null,
+	fecha_evento date not null
+);
+CREATE PUBLIC SYNONYM LOG_EVENTO FOR REG_EVENTOS_ZTA.LOG_EVENTO;
+grant select, update, delete, insert ON  REG_EVENTOS_ZTA.LOG_EVENTO TO APP_REG_EVENTO_WS;
+CREATE SEQUENCE REG_EVENTOS_ZTA.log_evento_id_seq
+ MINVALUE 1 
+ START WITH     1
+ INCREMENT BY   1
+ NOCACHE
+ NOCYCLE;
+CREATE PUBLIC SYNONYM log_evento_id_seq FOR REG_EVENTOS_ZTA.log_evento_id_seq;
+grant select ON  REG_EVENTOS_ZTA.log_evento_id_seq TO APP_REG_EVENTO_WS;
+ 
+ 
+
+
+create table REG_EVENTOS_ZTA.LOG_EVENTO_DETALLE(
+	log_evento_detalle_id number(30) NOT NULL primary key,
+	log_evento_id NUMBER(30) NOT NULL,
+	servicio_consumido varchar(200) NOT NULL,
+	parametros_consumo varchar(4000),
+	parametros_salida  varchar(4000),
+	codigo_retorno varchar(30),
+	mensaje_retorno varchar(2000),
+	traza_error  varchar(4000),
+	fecha_creacion date not null,
+	usuario_creacion varchar(30) not null,
+	fecha_evento date not null
+);
+grant select, update, delete, insert ON  REG_EVENTOS_ZTA.LOG_EVENTO_DETALLE TO APP_REG_EVENTO_WS;
+
+CREATE SEQUENCE REG_EVENTOS_ZTA.log_evento_detalle_id_seq
+ START WITH     1
+ INCREMENT BY   1
+ NOCACHE
+ NOCYCLE;
+
+CREATE PUBLIC SYNONYM LOG_EVENTO_DETALLE FOR REG_EVENTOS_ZTA.log_evento_detalle_id_seq;
+grant select ON  REG_EVENTOS_ZTA.log_evento_detalle_id_seq TO APP_REG_EVENTO_WS;
+
+mvn install:install-file -Dfile=C:\eclipse-jee-photon\lib\ojdbc8.jar -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=18.1.0.0 -Dpackaging=jar -DgeneratePom=true
+
+
