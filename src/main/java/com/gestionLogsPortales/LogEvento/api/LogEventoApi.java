@@ -42,7 +42,7 @@ public class LogEventoApi
 			
 			System.out.println(" RespuestaGestionLog registrarEventoLog 2");
 			
-			if(lLogEvento != null && lLogEvento.getlogEventoId() > 0)
+			if(lLogEvento != null /*&& lLogEvento.getlogEventoId() > 0*/)
 			{
 				lRespuestaGestionLog.setMensajeError("Registrado lLogEvento =>"+lLogEvento.toString());
 			}

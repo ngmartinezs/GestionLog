@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity(name="LOG_EVENTO_DETALLE")
-@SequenceGenerator(name="LOG_EVENTO_DETALLE_ID_SEQ", schema="REG_EVENTOS_ZTA",sequenceName="LOG_EVENTO_DETALLE_ID_SEQ", allocationSize=1)
 public class LogEventoDetalle implements Serializable
 {
 	/**
@@ -22,12 +23,15 @@ public class LogEventoDetalle implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LOG_EVENTO_DETALLE_ID_SEQ" )
-	@Column(name ="LOG_EVENTO_DETALLE_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LOG_EVENTO_DETALLE_ID_GEN" )
+	@SequenceGenerator(name="LOG_EVENTO_DETALLE_ID_GEN",sequenceName="LOG_EVENTO_DETALLE_ID_SEQ", allocationSize=50)
+	@Column(name ="LOG_EVENTO_DETALLE_ID",updatable = false, nullable = false)
 	private Long logEventoDetalleId;
 	
-	@Column(name ="LOG_EVENTO_ID")
-	private Long logEventoId;
+	
+	@ManyToOne
+	@JoinColumn(name = "LOG_EVENTO_ID")
+	private LogEvento logEvento;
 	
 	@Column(name ="SERVICIO_CONSUMIDO")
 	private String servicioConsumido;
@@ -63,24 +67,24 @@ public class LogEventoDetalle implements Serializable
 	public LogEventoDetalle() 
 	{}
 	
-	public LogEventoDetalle(Long logEventoId,
+	public LogEventoDetalle(LogEvento logEventoId,
 							Long logEventoDetalleId,
 							String servicioConsumido,
 							String parametrosConsumo,
 							String parametrosSalida) 
 	{
-		this.logEventoId = logEventoId;
+		this.logEvento = logEventoId;
 		this.logEventoDetalleId = logEventoDetalleId;
 		this.servicioConsumido = servicioConsumido;
 		this.parametrosConsumo = parametrosConsumo;
 		this.parametrosSalida = parametrosSalida;
 	}
 	
-	public Long getLogEventoId() {
-		return logEventoId;
+	public LogEvento getLogEvento() {
+		return logEvento;
 	}
-	public void setLogEventoId(Long logEventoId) {
-		this.logEventoId = logEventoId;
+	public void setLogEvento(LogEvento logEventoId) {
+		this.logEvento = logEventoId;
 	}
 	
 	public Long getLogEventoDetalleId() {
@@ -161,7 +165,7 @@ public class LogEventoDetalle implements Serializable
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("LogEventoDetalle [logEventoId=");
-		builder.append(logEventoId);
+		builder.append(logEvento);
 		builder.append(", logEventoDetalleId=");
 		builder.append(logEventoDetalleId);
 		builder.append(", servicioConsumido=");

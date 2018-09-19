@@ -65,9 +65,9 @@ grant select ON  REG_EVENTOS_ZTA.log_evento_id_seq TO APP_REG_EVENTO_WS;
  
  
 
-
+drop table REG_EVENTOS_ZTA.LOG_EVENTO_DETALLE;
 create table REG_EVENTOS_ZTA.LOG_EVENTO_DETALLE(
-	log_evento_detalle_id number(30) NOT NULL primary key,
+	log_evento_detalle_id number(30) NOT NULL,
 	log_evento_id NUMBER(30) NOT NULL,
 	servicio_consumido varchar(200) NOT NULL,
 	parametros_consumo varchar(4000),
@@ -80,14 +80,16 @@ create table REG_EVENTOS_ZTA.LOG_EVENTO_DETALLE(
 	fecha_evento date not null
 );
 grant select, update, delete, insert ON  REG_EVENTOS_ZTA.LOG_EVENTO_DETALLE TO APP_REG_EVENTO_WS;
+CREATE PUBLIC SYNONYM LOG_EVENTO_DETALLE FOR REG_EVENTOS_ZTA.LOG_EVENTO_DETALLE;
 
 CREATE SEQUENCE REG_EVENTOS_ZTA.log_evento_detalle_id_seq
+  MINVALUE 1 
  START WITH     1
  INCREMENT BY   1
  NOCACHE
  NOCYCLE;
 
-CREATE PUBLIC SYNONYM LOG_EVENTO_DETALLE FOR REG_EVENTOS_ZTA.log_evento_detalle_id_seq;
+CREATE PUBLIC SYNONYM log_evento_detalle_id_seq FOR REG_EVENTOS_ZTA.log_evento_detalle_id_seq;
 grant select ON  REG_EVENTOS_ZTA.log_evento_detalle_id_seq TO APP_REG_EVENTO_WS;
 
 mvn install:install-file -Dfile=C:\eclipse-jee-photon\lib\ojdbc8.jar -DgroupId=com.oracle -DartifactId=ojdbc8 -Dversion=18.1.0.0 -Dpackaging=jar -DgeneratePom=true

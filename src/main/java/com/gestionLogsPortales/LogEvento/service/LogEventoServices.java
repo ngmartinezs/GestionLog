@@ -72,6 +72,7 @@ public class LogEventoServices
 		LogEventoDetalle lLogEVentoDetalle = null;
 		Iterator<LogEventoDetalleRequest> lIterator = null;
 		
+		
 		try 
 		{
 			System.out.println(" LogEvento registrarEvento 3");
@@ -88,13 +89,12 @@ public class LogEventoServices
 				lLogEvento.setUsuarioCreacion("LOG_EVENTOS");
 				
 				System.out.println(" LogEvento registrarEvento 4");
-				lLogEventoRetorno = registrarLogEvento(lLogEvento);
-				lLogEventoRetorno.setlListaEventoDetalle(new ArrayList<LogEventoDetalle>());
+				//lLogEventoRetorno = registrarLogEvento(lLogEvento);
+				//lLogEventoRetorno.setlListaEventoDetalle(new ArrayList<>());
 				
 				System.out.println(" LogEvento registrarEvento 5");
 				
-				if( lLogEventoRetorno != null &&
-				    pLogEventoRequest.getArrayLogEventoDetalleRequest() != null    &&
+				if( pLogEventoRequest.getArrayLogEventoDetalleRequest() != null    &&
 					!pLogEventoRequest.getArrayLogEventoDetalleRequest().isEmpty() )
 				{
 					lIterator = pLogEventoRequest.getArrayLogEventoDetalleRequest().iterator();
@@ -107,8 +107,8 @@ public class LogEventoServices
 						if( lLogEventoDetalleRequest != null )
 						{	
 							lLogEVentoDetalle = lDozerMapper.beanMapper().map(lLogEventoDetalleRequest, LogEventoDetalle.class);
-							lLogEVentoDetalle.setLogEventoId(lLogEventoRetorno.getLogEventoId());
-							
+							//lLogEVentoDetalle.setLogEventoId(lLogEventoRetorno.getLogEventoId());
+							lLogEVentoDetalle.setLogEvento(lLogEvento);
 							
 							if( lLogEVentoDetalle.getFechaEvento() != null )
 								lCalendar.setTimeInMillis(Long.parseLong(pLogEventoRequest.getFechaEvento()));
@@ -123,13 +123,18 @@ public class LogEventoServices
 							/**
 							 * Se registra detalle
 							 **/
-							lLogEVentoDetalle = registrarLogEventoDetalle(lLogEVentoDetalle);
-							lLogEventoRetorno.getlListaEventoDetalle().add(lLogEVentoDetalle);
+							//lLogEVentoDetalle = registrarLogEventoDetalle(lLogEVentoDetalle);
+							lLogEvento.addLogEventoDetalle(lLogEVentoDetalle);
+							//lLogEventoRetorno.getlListaEventoDetalle().add(lLogEVentoDetalle);
+							
 							
 							System.out.println(" LogEvento registrarEvento 7");
 						}
+						
 					}
 				}
+				
+				lLogEventoRetorno = registrarLogEvento(lLogEvento);
 			}
 		}
 		catch(Exception pException)

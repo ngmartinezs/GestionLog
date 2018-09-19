@@ -3,16 +3,19 @@ package com.gestionLogsPortales.LogEvento.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity(name="LOG_EVENTO")
 @SequenceGenerator(name="LOG_EVENTO_ID_SEQ", schema="REG_EVENTOS_ZTA",sequenceName="LOG_EVENTO_ID_SEQ", allocationSize=1)
@@ -59,8 +62,8 @@ public class LogEvento implements Serializable{
 	private Date fechaEvento;
 	
 	
-	@Transient
-	private ArrayList<LogEventoDetalle> lListaEventoDetalle;
+	@OneToMany(mappedBy="logEvento", cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = LogEventoDetalle.class)
+	private List<LogEventoDetalle> lListaEventoDetalle;
 	
 	
 	
@@ -81,12 +84,7 @@ public class LogEvento implements Serializable{
 		this.nombrePagina = nombrePagina;
 	}
 	
-	public Long getlogEventoId() {
-		return logEventoId;
-	}
-	public void setlogEventoId(Long logEventoId) {
-		this.logEventoId = logEventoId;
-	}
+	
 	public String getIpUsuario() {
 		return ipUsuario;
 	}
@@ -164,13 +162,31 @@ public class LogEvento implements Serializable{
 		this.fechaEvento = fechaEvento;
 	}
 
-	public ArrayList<LogEventoDetalle> getlListaEventoDetalle() {
+	public List<LogEventoDetalle> getlListaEventoDetalle() {
 		return lListaEventoDetalle;
 	}
 
-	public void setlListaEventoDetalle(ArrayList<LogEventoDetalle> lListaEventoDetalle) {
+	public void setlListaEventoDetalle(List<LogEventoDetalle> lListaEventoDetalle) {
 		this.lListaEventoDetalle = lListaEventoDetalle;
 	}
+	
+	public List<LogEventoDetalle> getLogEventoDetalles() 
+	{
+		
+		if (this.lListaEventoDetalle == null) {
+				            this.lListaEventoDetalle = new ArrayList<>();
+		        }
+		        return this.lListaEventoDetalle;
+	}
+		
+	
+	public void addLogEventoDetalle(LogEventoDetalle pLogEventoDetalle)
+	{
+		pLogEventoDetalle.setLogEvento(this);
+		getLogEventoDetalles().add(pLogEventoDetalle);
+    }
+
+	
 
 	@Override
 	public String toString() {
