@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="mysql5-165dbd8295b-540a2f8c1ab65219" provider="mysql" driver="mysql5" name="MySQL - localhost" save-password="true" read-only="false">
+		<connection host="localhost" port="3306" server="" database="" url="jdbc:mysql://localhost:3306/" user="root" password="QlZVdBQVE05l8w==" home="C:\Program Files\MySQL\MySQL Server 5.7" type="dev">
+			<property name="connectTimeout" value="20000"/>
+		</connection>
+	</data-source>
+	<data-source id="oracle_thin-165e513d475-4099750e1926ebc6" provider="oracle" driver="oracle_thin" name="Oracle - XE" save-password="true" read-only="false">
+		<connection host="127.0.0.1" port="1521" server="" database="XE" url="jdbc:oracle:thin:@127.0.0.1:1521:XE" user="DS_APP_REG_EVENTO_WS" password="QlZVdBQVE05l8w==" home="C:\oraclexe\app\oracle\product\11.2.0\server" type="dev">
+			<provider-property name="@dbeaver-sid-service@" value="SID"/>
+			<provider-property name="@dbeaver-use-rule-hint@" value="false"/>
+			<provider-property name="@dbeaver-connection-type@" value="BASIC"/>
+			<provider-property name="@dbeaver-check-schema-content@" value="true"/>
+			<provider-property name="@dbeaver-always-show-dba@" value="false"/>
+		</connection>
+	</data-source>
+	<filters/>
+</data-sources>

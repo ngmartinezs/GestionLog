@@ -1,6 +1,7 @@
 package com.gestionLogsPortales.LogEvento.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity(name="LOG_EVENTO")
 @SequenceGenerator(name="LOG_EVENTO_ID_SEQ", schema="REG_EVENTOS_ZTA",sequenceName="LOG_EVENTO_ID_SEQ", allocationSize=1)
@@ -55,6 +57,10 @@ public class LogEvento implements Serializable{
 	@Column(name ="FECHA_EVENTO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaEvento;
+	
+	
+	@Transient
+	private ArrayList<LogEventoDetalle> lListaEventoDetalle;
 	
 	
 	
@@ -158,6 +164,14 @@ public class LogEvento implements Serializable{
 		this.fechaEvento = fechaEvento;
 	}
 
+	public ArrayList<LogEventoDetalle> getlListaEventoDetalle() {
+		return lListaEventoDetalle;
+	}
+
+	public void setlListaEventoDetalle(ArrayList<LogEventoDetalle> lListaEventoDetalle) {
+		this.lListaEventoDetalle = lListaEventoDetalle;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -181,9 +195,13 @@ public class LogEvento implements Serializable{
 		builder.append(usuarioCreacion);
 		builder.append(", fechaEvento=");
 		builder.append(fechaEvento);
+		builder.append(", lListaEventoDetalle=");
+		builder.append(lListaEventoDetalle);
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
 	
 
 }

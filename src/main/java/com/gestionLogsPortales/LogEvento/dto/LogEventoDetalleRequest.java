@@ -13,8 +13,8 @@ public class LogEventoDetalleRequest implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	
-	private Long idLogEvento;
-	private Long idLogEventoDetalle;
+	private Long logEventoDetalleId;
+	private Long logEventoId;
 	private String servicioConsumido;
 	private String parametrosConsumo;
 	private String parametrosSalida;
@@ -32,41 +32,49 @@ public class LogEventoDetalleRequest implements Serializable
 									String parametrosConsumo,
 									String parametrosSalida) 
 	{
-		this.idLogEvento = idLogEvento;
-		this.idLogEventoDetalle = idLogEventoDetalle;
+		this.logEventoId = idLogEvento;
+		this.logEventoDetalleId = idLogEventoDetalle;
 		this.servicioConsumido = servicioConsumido;
 		this.parametrosConsumo = parametrosConsumo;
 		this.parametrosSalida = parametrosSalida;
 	}
-	
-	public Long getIdLogEvento() {
-		return idLogEvento;
+
+	public Long getLogEventoDetalleId() {
+		return logEventoDetalleId;
 	}
-	public void setIdLogEvento(Long idLogEvento) {
-		this.idLogEvento = idLogEvento;
+
+	public void setLogEventoDetalleId(Long logEventoDetalleId) {
+		this.logEventoDetalleId = logEventoDetalleId;
 	}
-	
-	public Long getIdLogEventoDetalle() {
-		return idLogEventoDetalle;
+
+	public Long getLogEventoId() {
+		return logEventoId;
 	}
-	public void setIdLogEventoDetalle(Long idLogEventoDetalle) {
-		this.idLogEventoDetalle = idLogEventoDetalle;
+
+	public void setLogEventoId(Long logEventoId) {
+		this.logEventoId = logEventoId;
 	}
+
 	public String getServicioConsumido() {
 		return servicioConsumido;
 	}
+
 	public void setServicioConsumido(String servicioConsumido) {
 		this.servicioConsumido = servicioConsumido;
 	}
+
 	public String getParametrosConsumo() {
 		return parametrosConsumo;
 	}
+
 	public void setParametrosConsumo(String parametrosConsumo) {
 		this.parametrosConsumo = parametrosConsumo;
 	}
+
 	public String getParametrosSalida() {
 		return parametrosSalida;
 	}
+
 	public void setParametrosSalida(String parametrosSalida) {
 		this.parametrosSalida = parametrosSalida;
 	}
@@ -77,14 +85,6 @@ public class LogEventoDetalleRequest implements Serializable
 
 	public void setCodigoRetorno(String codigoRetorno) {
 		this.codigoRetorno = codigoRetorno;
-	}
-
-	public String getMensajeRetorno() {
-		return mensajeRetorno;
-	}
-
-	public void setMensajeRetorno(String mensajeRetorno) {
-		this.mensajeRetorno = mensajeRetorno;
 	}
 
 	public String getTrazaError() {
@@ -106,10 +106,10 @@ public class LogEventoDetalleRequest implements Serializable
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("LogEventoDetalleRequest [idLogEvento=");
-		builder.append(idLogEvento);
-		builder.append(", idLogEventoDetalle=");
-		builder.append(idLogEventoDetalle);
+		builder.append("LogEventoDetalleRequest [logEventoDetalleId=");
+		builder.append(logEventoDetalleId);
+		builder.append(", logEventoId=");
+		builder.append(logEventoId);
 		builder.append(", servicioConsumido=");
 		builder.append(servicioConsumido);
 		builder.append(", parametrosConsumo=");

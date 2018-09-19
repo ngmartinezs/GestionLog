@@ -12,8 +12,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity(name="REG_EVENTOS_ZTA.LOG_EVENTO_DETALLES")
-@SequenceGenerator(name="LOG_EVENTO_DETALLE_ID_SEQ", initialValue=1, allocationSize=100)
+@Entity(name="LOG_EVENTO_DETALLE")
+@SequenceGenerator(name="LOG_EVENTO_DETALLE_ID_SEQ", schema="REG_EVENTOS_ZTA",sequenceName="LOG_EVENTO_DETALLE_ID_SEQ", allocationSize=1)
 public class LogEventoDetalle implements Serializable
 {
 	/**
@@ -23,12 +23,11 @@ public class LogEventoDetalle implements Serializable
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LOG_EVENTO_DETALLE_ID_SEQ" )
-	@Column(name ="LOG_EVENTO_ID")
-	private Long logEventoId;
-	
 	@Column(name ="LOG_EVENTO_DETALLE_ID")
 	private Long logEventoDetalleId;
 	
+	@Column(name ="LOG_EVENTO_ID")
+	private Long logEventoId;
 	
 	@Column(name ="SERVICIO_CONSUMIDO")
 	private String servicioConsumido;
@@ -77,17 +76,17 @@ public class LogEventoDetalle implements Serializable
 		this.parametrosSalida = parametrosSalida;
 	}
 	
-	public Long getlogEventoId() {
+	public Long getLogEventoId() {
 		return logEventoId;
 	}
-	public void setlogEventoId(Long logEventoId) {
+	public void setLogEventoId(Long logEventoId) {
 		this.logEventoId = logEventoId;
 	}
 	
-	public Long getlogEventoDetalleId() {
+	public Long getLogEventoDetalleId() {
 		return logEventoDetalleId;
 	}
-	public void setlogEventoDetalleId(Long logEventoDetalleId) {
+	public void setLogEventoDetalleId(Long logEventoDetalleId) {
 		this.logEventoDetalleId = logEventoDetalleId;
 	}
 	public String getServicioConsumido() {
@@ -109,21 +108,6 @@ public class LogEventoDetalle implements Serializable
 		this.parametrosSalida = parametrosSalida;
 	}
 
-	public Long getLogEventoId() {
-		return logEventoId;
-	}
-
-	public void setLogEventoId(Long logEventoId) {
-		this.logEventoId = logEventoId;
-	}
-
-	public Long getLogEventoDetalleId() {
-		return logEventoDetalleId;
-	}
-
-	public void setLogEventoDetalleId(Long logEventoDetalleId) {
-		this.logEventoDetalleId = logEventoDetalleId;
-	}
 
 	public String getCodigoRetorno() {
 		return codigoRetorno;
